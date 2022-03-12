@@ -13,6 +13,9 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
+/**
+ * Responsible for controlling the main UI elements of the Simulation
+ */
 public class SceneController implements Initializable{
     // private Stage stage;
 	// private Scene scene;
@@ -40,6 +43,9 @@ public class SceneController implements Initializable{
 		return instance;
 	}
 
+	/**
+	 * Allows for further rendering after the root element has been proccesed
+	 */
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
         System.out.println("hello");
@@ -47,11 +53,19 @@ public class SceneController implements Initializable{
         raceTrackContainer.setCenter(RaceTrack.getInstance().getRaceTrack());
 	}
 
-    //starts the race
+    /**
+	 * Method to start the race
+	 * @param event the StartButton
+	 */
     public void startRaceButton(ActionEvent event){
         RaceTrack.getInstance().startRace();
     }
     
+
+	/**
+	 * The win alert once a car has won
+	 * @param winner the Car object that called winAlert
+	 */
     public void winAlert(Car winner){
         Alert alert = new Alert(AlertType.CONFIRMATION);
 		alert.setTitle("Winner Winner Chicken Dinner ! ! ! ! ! ! !");

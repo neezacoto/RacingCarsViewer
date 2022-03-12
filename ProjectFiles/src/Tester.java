@@ -12,14 +12,13 @@ import javafx.scene.Scene;
 /**
  * Tester class responsible for running the game
  */
-
 public class Tester extends Application {
 
-		/**
-		 * start function responsible for setting the scene and stage
-		 */
- @Override
- public void start(Stage stage) {
+	/**
+	 * start function responsible for setting the scene and stage
+	 */
+ 	@Override
+	public void start(Stage stage) {
 		try {
 
 		Parent root = FXMLLoader.load(getClass().getResource("RaceUI.fxml"));
@@ -33,7 +32,7 @@ public class Tester extends Application {
 		}
 	}
 
- /**
+ 	/**
 	* main method
 	*/
 	public static void main(String[] args) {
