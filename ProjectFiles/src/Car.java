@@ -5,7 +5,9 @@ import javafx.scene.shape.Path;
 import javafx.scene.shape.Rectangle;
 /**
  * This class is responsible for rendering the car and 
- * making it race down a path finally reporting 
+ * making it race down a path reporting when it finishes
+ * Christian Rudder: Made the skeleton connecting it to demonstrate how 
+ * a car object will show on the racetrack and how it will report it's win
  */
 public class Car extends Rectangle{
     private String color;

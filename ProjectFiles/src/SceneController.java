@@ -59,7 +59,8 @@ public class SceneController implements Initializable{
 		alert.setContentText("the race is finished (clicking 'ok' will reset the track):");
 
 		if(alert.showAndWait().get() == ButtonType.OK) {
-				
+				//this will reset track by re-creating a whole new race
+                //RaceTrack.newInstance();
 		}
     }
 
