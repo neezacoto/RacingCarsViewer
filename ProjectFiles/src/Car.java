@@ -19,7 +19,7 @@ import javafx.scene.shape.Polyline;
 public class Car extends Rectangle{
     private String color;
     private int speed;
-    private Double[] path; //coordinate path that the car has to follow
+    private ArrayList<Double> path; //coordinate path that the car has to follow
     private PathTransition transition;
 
     private Random rand = new Random(); //random is used to randomize the value of the car
@@ -33,7 +33,7 @@ public class Car extends Rectangle{
         //finishRaceReport();
     }
 
-    Car(int speed, Color carColor, Double[] path){ //Used to give the cars specific paths according to their numbers
+    Car(int speed, Color carColor, ArrayList<Double> path){ //Used to give the cars specific paths according to their numbers
         super(50,30, carColor);
         this.speed = speed;
         this.path = path;
@@ -43,24 +43,23 @@ public class Car extends Rectangle{
         this.path = path;
 
         //corrects the height
-        for(int i = 0; i < path.length; i++) {
-            if( i== 0 || i == 6 || i == 8) {
-                path[i] += 15;
-            }
-            if(i == 1 || i == 3 || i == 9) {
-                path[i] += 5;
-            }
-        }
+        // for(int i = 0; i < path.length; i++) {
+        //     if( i== 0 || i == 6 || i == 8) {
+        //         path[i] += 15;
+        //     }
+        //     if(i == 1 || i == 3 || i == 9) {
+        //         path[i] += 5;
+        //     }
+        // }
 
         Polyline polyline = new Polyline();
         polyline.getPoints().addAll(path);
 
         transition = new PathTransition();
         transition.setNode(this);
-        transition.setDuration(Duration.seconds(3));
+        transition.setDuration(Duration.seconds(speed));
         transition.setPath(polyline);
         transition.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
-        transition.setCycleCount(PathTransition.INDEFINITE);
     }
     /**
      * starts following path when told to from Racepath startRace()
@@ -74,7 +73,7 @@ public class Car extends Rectangle{
      * getter for the race path's path
      * @return race path coordinates 
      */
-    public Double[] getpath() {
+    public ArrayList<Double> getpath() {
         return this.path;
     }
     
@@ -141,8 +140,8 @@ public class Car extends Rectangle{
     //method used during development to check parameters of the car -JL
     public void carPrinterTester(){
         System.out.print("Car's path is: ");
-        for(int i = 0; i < path.length; i++){
-            System.out.print(path[i] + " ");
+        for(int i = 0; i < path.size(); i++){
+            System.out.print(path.get(i) + " ");
         }
         System.out.println("\n With Speed: " + speed);
 

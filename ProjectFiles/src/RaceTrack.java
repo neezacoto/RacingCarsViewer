@@ -4,14 +4,14 @@
 import java.awt.*;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Random;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.layout.StackPane;
-
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 
 /**
@@ -22,9 +22,9 @@ import javafx.scene.paint.Color;
  * This in the begininng allowed for a car object to move to a position and trigger the win alert upon race start.
  * Also including an initial Override to the toString method
  */
-public class RaceTrack extends StackPane { 
+public class RaceTrack extends AnchorPane { 
     private static RaceTrack instance;//the instance of the RaceTrack
-    private Double[] carPath;//the checkpoint path coordinates
+    private ArrayList<Double> carPath;//the checkpoint path coordinates
     private ArrayList<Car> cars;//all the cars in play
     private ArrayList<Integer> track;
 
@@ -80,20 +80,48 @@ public class RaceTrack extends StackPane {
 
         ArrayList<Integer> carSpeeds = generateRandomSpeedList();
 
-        carPath = new Double[] {
-            10.0, 10.0,
-            100.0, 10.0,
-            100.0, 150.0,
-            10.0,150.0,
-            10.0,10.0
+        // carPath = new Double[] {
+        //     10.0, 10.0,
+        //     100.0, 10.0,
+        //     100.0, 150.0,
+        //     10.0,150.0,
+        //     
  
-        };
+        // };
+
+        // carPath = new Double[] {
+            
+        //     100.0, 10.0,
+        //     100.0, 150.0,
+        //     10.0,150.0,
+        //     10.0,10.0,
+        //     
+ 
+        // };
+
+        // carPath = new Double[] {
+            
+        //     100.0, 150.0,
+        //     10.0,150.0,
+        //     10.0,10.0,
+        //     100.0, 10.0,
+ 
+        // };
+
+        carPath = new ArrayList<>(Arrays.asList(
+            10.0,150.0,
+            10.0,10.0,
+            100.0, 10.0,
+            100.0, 150.0
+        ));
 
 
         for(int i = 0; i < 4; i++){
-            Double temp[] = carPath;
-            cars.add(new Car(carSpeeds.get(i), carColors.get(i), shiftCheckpointList(temp)));
-
+            Car car = new Car(carSpeeds.get(i), carColors.get(i), shiftCheckpointList(carPath));
+            cars.add(car);
+            this.getChildren().add(car);
+            AnchorPane.setTopAnchor(car, 70.0);
+            AnchorPane.setLeftAnchor(car, 250.0);
         }
 
         // //Loop used to test to see what information the cars have
@@ -101,7 +129,8 @@ public class RaceTrack extends StackPane {
         //     cars.get(i).carPrinterTester();
         // }
 
-        this.getChildren().addAll(cars);
+        
+        
 
     }
 
@@ -109,18 +138,17 @@ public class RaceTrack extends StackPane {
     //method used to shift the checkpoint list of the cars to no two cars have the same path -JL
     //Bug fix by Christian so that all cars still ended up with the same path
 
-    private Double[] shiftCheckpointList(Double[] list){
-        Double temp[] = new Double[list.length];
-        Double listPoint = list[0];
-        for(int i = 0; i < list.length - 1; i++){
-            list[i] = list[i + 1];
+    private ArrayList<Double> shiftCheckpointList(ArrayList<Double> list){
+        ArrayList<Double> newCords = new ArrayList<>();
+        
+        Double temp1 = list.remove(0);
+        Double temp2 = list.remove(0);
+        list.add(temp1);
+        list.add(temp2);
+        for(Double i : list) {
+            newCords.add(i);
         }
-        list[list.length - 1] = listPoint;
-
-        for(int i = 0; i < temp.length; i++) {
-            temp[i] = list[i];
-        }
-        return temp;
+        return newCords;
     }
 
 
@@ -143,7 +171,7 @@ public class RaceTrack extends StackPane {
      * @return RaceTrack's AnchorPane
      * @author Christian Rudder
      */
-    public StackPane getRaceTrack() {
+    public AnchorPane getRaceTrack() {
         return this;
     }
 
@@ -172,7 +200,7 @@ public class RaceTrack extends StackPane {
      * Getter for the track coordinates
      * @return track coordinates
      */
-    public Double[] getTrack() {
+    public ArrayList<Double> getTrack() {
         return carPath;
     }
 
