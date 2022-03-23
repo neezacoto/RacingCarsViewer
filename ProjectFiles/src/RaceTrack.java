@@ -1,12 +1,18 @@
 /**
  * @author 
  */
+import java.awt.*;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Random;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.StackPane;
+
+import javafx.scene.paint.Color;
 
 /**
  * This class will be responsible for creating the race track that holds all
@@ -18,8 +24,11 @@ import javafx.scene.layout.StackPane;
  */
 public class RaceTrack extends StackPane { 
     private static RaceTrack instance;//the instance of the RaceTrack
-    private int[] track;//the checkpoint path coordinates
+    private int[] carPath;//the checkpoint path coordinates
     private ArrayList<Car> cars;//all the cars in play
+    private ArrayList<Integer> track;
+
+    Random rand = new Random(); //used to generate random speeds for the cars
 
     /**
 	 *Creating an instance of the RaceTrack to be referenced
@@ -28,7 +37,7 @@ public class RaceTrack extends StackPane {
 	 */
     public static RaceTrack newInstance() {
         //this is where it's calling the Constructor
-        instance = new RaceTrack(new Car());
+        instance = new RaceTrack();
         return instance;
     }
 
@@ -46,14 +55,80 @@ public class RaceTrack extends StackPane {
      * @author Christian Rudder
      */
 
-    public RaceTrack(Car car) {
-        cars = new ArrayList();
+    public RaceTrack() {
+        //Old code used to start the initialization of the racetrack
+        /*cars = new ArrayList();
         this.cars.add(car);
         this.setStyle("-fx-background-color: black");
         Button button = new Button();
         
-        this.getChildren().addAll(car);
+        this.getChildren().addAll(car);*/
+
+
+        cars = new ArrayList<>();
+
+        ArrayList<Color> carColors = new ArrayList<Color>();
+        carColors.add(Color.GREEN);
+        carColors.add(Color.RED);
+        carColors.add(Color.CYAN);
+        carColors.add(Color.YELLOW);
+
+        ArrayList<Integer> track = new ArrayList<>();
+        for(int j = 1; j < 5; j++){
+            track.add(j);
+        }
+
+        ArrayList<Integer> carSpeeds = generateRandomSpeedList();
+
+        carPath = new int[]{1, 2, 3, 4};
+
+        //int[][] tempPath = new int[4][4]
+
+        for(int i = 0; i < 4; i++){
+            cars.add(new Car(carSpeeds.get(i), carColors.get(i), shiftCheckpointList(carPath)));
+            //carPath = shiftCheckpointList(carPath);
+        }
+
+
+
+
+
+        //Loop used to test to see what information the cars have
+        for(int i = 0; i < cars.size(); i++){
+            cars.get(i).carPrinterTester();
+        }
+
     }
+
+    private int[] shiftCheckpointList(int[] list){
+        int[] temp = new int[list.length];
+        int listPoint = list[0];
+        for(int i = 0; i < list.length - 1; i++){
+            list[i] = list[i + 1];
+        }
+        list[list.length - 1] = listPoint;
+
+        for(int i = 0; i < temp.length; i++) {
+            temp[i] = list[i];
+        }
+        System.out.println("hi");
+        return temp;
+    }
+
+
+    //used to generate speeds from an integer to another then randomizes the order of the speeds -JL
+    private ArrayList<Integer> generateRandomSpeedList(){
+        ArrayList<Integer> speeds = new ArrayList<Integer>();
+
+        for(int i = 5; i < 10; i++){
+            speeds.add(i);
+        }
+
+        Collections.shuffle(speeds);
+        return speeds;
+    }
+
+
 
     /**
      * getter for the RaceTrack UI
@@ -63,6 +138,8 @@ public class RaceTrack extends StackPane {
     public StackPane getRaceTrack() {
         return this;
     }
+
+
 
     /**
      * starts the race
@@ -85,15 +162,15 @@ public class RaceTrack extends StackPane {
      * @return track coordinates
      */
     public int[] getTrack() {
-        return null;
+        return carPath;
     }
 
     /**
      * getter for the cars in the race
      * @return ArrayList of car objects
      */
-    public ArrayList<Object> getCars() {
-        return null;
+    public ArrayList<Car> getCars() {
+        return cars;
     } 
 
     /**
@@ -107,8 +184,20 @@ public class RaceTrack extends StackPane {
             carList += car + "\n-\n";
         }
 
-        return "Track Checkpoints: " + this.track + "\n" + carList;
+        return "Track Checkpoints: " + this.carPath + "\n" + carList;
     }
+
+    public Car getWinner(){
+        Car winner = cars.get(0);
+        for(int a = 1; a < 4; a++){
+            if(winner.getSpeed() <= cars.get(a).getSpeed()){
+                winner = cars.get(a);
+            }
+        }
+        winner.carPrinterTester();
+        return winner;
+    }
+
 
 
 }
