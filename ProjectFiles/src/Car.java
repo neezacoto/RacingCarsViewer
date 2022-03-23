@@ -1,5 +1,7 @@
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+
+import java.util.ArrayList;
 import java.util.Random;
 /**
  * This class is responsible for rendering the car and 
@@ -12,7 +14,7 @@ import java.util.Random;
 public class Car extends Rectangle{
     private String color;
     private int speed;
-    private int[] track; //coordinate path that the car has to follow
+    private ArrayList<Integer> track; //coordinate path that the car has to follow
 
     private Random rand = new Random(); //random is used to randomize the value of the car
 
@@ -25,25 +27,10 @@ public class Car extends Rectangle{
         //finishRaceReport();
     }
 
-    Car(int carNumber){ //Used to give the cars specific paths according to their numbers
-        super(50,30,Color.GREEN);
-        this.color = "Green";
-        speed = 0;
-        randomizeSpeed();
-
-        if(carNumber == 1){
-            track = new int[]{1, 2, 3, 4};
-        } else if (carNumber == 2){
-            track = new int[]{2, 3, 4, 1};
-        } else if (carNumber == 3){
-            track = new int[]{3, 4, 1, 2};
-        } else if (carNumber == 4){
-            track = new int[]{4, 1, 2, 3};
-        } else {
-            track = new int[]{0, 0, 0, 0};
-        }
-
-
+    Car(int speed, Color carColor, ArrayList<Integer> track){ //Used to give the cars specific paths according to their numbers
+        super(50,30, carColor);
+        this.speed = speed;
+        this.track = track;
     }
     /**
      * starts following path when told to from RaceTrack startRace()
@@ -57,7 +44,7 @@ public class Car extends Rectangle{
      * getter for the race track's track
      * @return race track coordinates 
      */
-    public int[] getTrack() {
+    public ArrayList<Integer> getTrack() {
         return this.track;
     }
     
@@ -110,7 +97,7 @@ public class Car extends Rectangle{
     }
 
     /*
-    Method to randomize the speed of the car again if any cars have the matching speed -JL
+    Method to randomize the speed of the car again if the speed were ever 0 -JL
     */
 
     public void randomizeSpeed(){
@@ -123,7 +110,11 @@ public class Car extends Rectangle{
 
     //method used during development to check parameters of the car -JL
     public void carPrinterTester(){
-        System.out.println("Car's path is " + track[0] + " " + track[1] + " " +track[2] + " " + track[3] + " \n with speed: " + speed);
+        System.out.print("Car's path is: ");
+        for(int i = 0; i < 4; i++){
+            System.out.print(track.get(i) + " ");
+        }
+        System.out.println("\n With Speed: " + speed);
 
     }
 

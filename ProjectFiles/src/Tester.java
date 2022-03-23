@@ -9,6 +9,8 @@ import javafx.stage.Stage;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 
+import java.util.ArrayList;
+
 /**
  * Tester class responsible for running the game
  */
