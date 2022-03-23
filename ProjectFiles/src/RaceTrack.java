@@ -7,7 +7,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Random;
-
+import java.util.Timer;
+import java.util.TimerTask;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Alert.AlertType;
@@ -26,10 +27,10 @@ public class RaceTrack extends AnchorPane {
     private static RaceTrack instance;//the instance of the RaceTrack
     private ArrayList<Double> carPath;//the checkpoint path coordinates
     private ArrayList<Car> cars;//all the cars in play
-    private ArrayList<Integer> track;
-
+    private Car highSpeed;
+    private int lowSpeed;
     Random rand = new Random(); //used to generate random speeds for the cars
-
+    Timer timer = new Timer();// timer to delay win screan
     /**
 	 *Creating an instance of the RaceTrack to be referenced
 	 * @return an instance of itself
@@ -38,6 +39,7 @@ public class RaceTrack extends AnchorPane {
     public static RaceTrack newInstance() {
         //this is where it's calling the Constructor
         instance = new RaceTrack();
+        
         return instance;
     }
 
@@ -66,6 +68,7 @@ public class RaceTrack extends AnchorPane {
 
         this.setStyle("-fx-background-color: black");
         cars = new ArrayList<>();
+        lowSpeed=0;
 
         ArrayList<Color> carColors = new ArrayList<Color>();
         carColors.add(Color.GREEN);
@@ -77,9 +80,10 @@ public class RaceTrack extends AnchorPane {
         for(int j = 1; j < 5; j++){
             track.add(j);
         }
-
+        
+            
         ArrayList<Integer> carSpeeds = generateRandomSpeedList();
-
+        
         // carPath = new Double[] {
         //     10.0, 10.0,
         //     100.0, 10.0,
@@ -122,6 +126,16 @@ public class RaceTrack extends AnchorPane {
             this.getChildren().add(car);
             AnchorPane.setTopAnchor(car, 70.0);
             AnchorPane.setLeftAnchor(car, 250.0);
+            if(i==0){
+                highSpeed=car;
+                }
+            if(carSpeeds.get(i)<highSpeed.getSpeed()){
+                highSpeed=car;
+                }
+            if(carSpeeds.get(i)>lowSpeed){
+                lowSpeed=carSpeeds.get(i);
+                }
+            
         }
 
         // //Loop used to test to see what information the cars have
@@ -175,7 +189,16 @@ public class RaceTrack extends AnchorPane {
     public AnchorPane getRaceTrack() {
         return this;
     }
-
+    
+    public void EndOfRace(){
+    timer.schedule(new TimerTask() {
+        @Override
+        public void run() {
+            SceneController.getInstance().winAlert(highSpeed);
+        }
+    }, lowSpeed*1000);
+    
+    }
 
 
     /**
@@ -194,6 +217,7 @@ public class RaceTrack extends AnchorPane {
         
         for (Car car : cars) {
             car.startEngine();
+            
         }
     }
 

@@ -59,6 +59,7 @@ public class SceneController implements Initializable{
 	 */
     public void startRaceButton(ActionEvent event){
         RaceTrack.getInstance().startRace();
+        RaceTrack.getInstance().EndOfRace();
     }
     
 
