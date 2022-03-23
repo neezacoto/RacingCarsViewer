@@ -114,6 +114,7 @@ public class Car extends Rectangle{
     */
 
     public void randomizeSpeed(){
+        speed = rand.nextInt(5);
         while(speed == 0) {
             speed = rand.nextInt(5);
         }

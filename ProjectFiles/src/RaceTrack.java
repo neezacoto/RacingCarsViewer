@@ -62,13 +62,13 @@ public class RaceTrack extends StackPane {
             cars.get(0).randomizeSpeed();
         }
 
-        /*while(cars.get(1).getSpeed() == cars.get(0).getSpeed() || cars.get(1).getSpeed() == cars.get(2).getSpeed() || cars.get(1).getSpeed() == cars.get(3).getSpeed()){
+        while(cars.get(1).getSpeed() == cars.get(0).getSpeed() || cars.get(1).getSpeed() == cars.get(2).getSpeed() || cars.get(1).getSpeed() == cars.get(3).getSpeed()){
             cars.get(1).randomizeSpeed();
         }
 
         while(cars.get(3).getSpeed() == cars.get(0).getSpeed() || cars.get(3).getSpeed() == cars.get(1).getSpeed() || cars.get(3).getSpeed() == cars.get(2).getSpeed()){
             cars.get(3).randomizeSpeed();
-        }*/
+        }
 
         for(int i = 0; i < 4; i++){
             cars.get(i).carPrinterTester();
