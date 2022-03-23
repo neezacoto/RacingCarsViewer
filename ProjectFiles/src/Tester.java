@@ -39,8 +39,8 @@ public class Tester extends Application {
 	* main method
 	*/
 	public static void main(String[] args) {
-		//launch(args);
-		RaceTrack raceTrack = new RaceTrack();
+		launch(args);
+		//RaceTrack raceTrack = new RaceTrack();
 
 	}
 }

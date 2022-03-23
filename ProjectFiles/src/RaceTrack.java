@@ -24,7 +24,7 @@ import javafx.scene.paint.Color;
  */
 public class RaceTrack extends StackPane { 
     private static RaceTrack instance;//the instance of the RaceTrack
-    private int[] carPath;//the checkpoint path coordinates
+    private Double[] carPath;//the checkpoint path coordinates
     private ArrayList<Car> cars;//all the cars in play
     private ArrayList<Integer> track;
 
@@ -64,7 +64,7 @@ public class RaceTrack extends StackPane {
         
         this.getChildren().addAll(car);*/
 
-
+        this.setStyle("-fx-background-color: black");
         cars = new ArrayList<>();
 
         ArrayList<Color> carColors = new ArrayList<Color>();
@@ -80,24 +80,28 @@ public class RaceTrack extends StackPane {
 
         ArrayList<Integer> carSpeeds = generateRandomSpeedList();
 
-        carPath = new int[]{1, 2, 3, 4};
-
+        carPath = new Double[] {
+            10.0, 10.0,
+            100.0, 10.0,
+            100.0, 150.0,
+            10.0,150.0,
+            10.0,10.0
+ 
+        };
 
 
         for(int i = 0; i < 4; i++){
-            int[] temp = carPath;
+            Double temp[] = carPath;
             cars.add(new Car(carSpeeds.get(i), carColors.get(i), shiftCheckpointList(temp)));
 
         }
 
+        // //Loop used to test to see what information the cars have
+        // for(int i = 0; i < cars.size(); i++){
+        //     cars.get(i).carPrinterTester();
+        // }
 
-
-
-
-        //Loop used to test to see what information the cars have
-        for(int i = 0; i < cars.size(); i++){
-            cars.get(i).carPrinterTester();
-        }
+        this.getChildren().addAll(cars);
 
     }
 
@@ -105,9 +109,9 @@ public class RaceTrack extends StackPane {
     //method used to shift the checkpoint list of the cars to no two cars have the same path -JL
     //Bug fix by Christian so that all cars still ended up with the same path
 
-    private int[] shiftCheckpointList(int[] list){
-        int[] temp = new int[list.length];
-        int listPoint = list[0];
+    private Double[] shiftCheckpointList(Double[] list){
+        Double temp[] = new Double[list.length];
+        Double listPoint = list[0];
         for(int i = 0; i < list.length - 1; i++){
             list[i] = list[i + 1];
         }
@@ -116,7 +120,6 @@ public class RaceTrack extends StackPane {
         for(int i = 0; i < temp.length; i++) {
             temp[i] = list[i];
         }
-        System.out.println("hi");
         return temp;
     }
 
@@ -152,21 +155,24 @@ public class RaceTrack extends StackPane {
     public void startRace() {
         //this is just some test code to check if the start button is being called
         //feel free to comment out or delete once you start writing your logic
-        Alert alert = new Alert(AlertType.CONFIRMATION);
-		alert.setTitle("Yep");
-		alert.setHeaderText("start race works");
-		alert.setContentText("press ok to do nothing");
+        // Alert alert = new Alert(AlertType.CONFIRMATION);
+		// alert.setTitle("Yep");
+		// alert.setHeaderText("start race works");
+		// alert.setContentText("press ok to do nothing");
 
-		alert.showAndWait();
+		// alert.showAndWait();
         //------------------------------------------------------------------------
         
+        for (Car car : cars) {
+            car.startEngine();
+        }
     }
 
     /**
      * Getter for the track coordinates
      * @return track coordinates
      */
-    public int[] getTrack() {
+    public Double[] getTrack() {
         return carPath;
     }
 

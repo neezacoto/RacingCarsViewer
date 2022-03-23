@@ -3,18 +3,24 @@ import javafx.scene.shape.Rectangle;
 
 import java.util.ArrayList;
 import java.util.Random;
+import javafx.animation.PathTransition;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Path;
+import javafx.util.Duration;
+import javafx.scene.shape.Polyline;
 /**
  * This class is responsible for rendering the car and 
  * making it race down a path reporting when it finishes
  * -
  * Christian Rudder: Made the skeleton connecting it to demonstrate how 
- * a car object will show on the racetrack and how it will report it's win. Also including
+ * a car object will show on the racepath and how it will report it's win. Also including
  * an initial override for toString and Equals
  */
 public class Car extends Rectangle{
     private String color;
     private int speed;
-    private int[] track; //coordinate path that the car has to follow
+    private Double[] path; //coordinate path that the car has to follow
+    private PathTransition transition;
 
     private Random rand = new Random(); //random is used to randomize the value of the car
 
@@ -27,25 +33,49 @@ public class Car extends Rectangle{
         //finishRaceReport();
     }
 
-    Car(int speed, Color carColor, int[] track){ //Used to give the cars specific paths according to their numbers
+    Car(int speed, Color carColor, Double[] path){ //Used to give the cars specific paths according to their numbers
         super(50,30, carColor);
         this.speed = speed;
-        this.track = track;
+        this.path = path;
+
+        // Circle circle = new Circle(100);
+
+        this.path = path;
+
+        //corrects the height
+        for(int i = 0; i < path.length; i++) {
+            if( i== 0 || i == 6 || i == 8) {
+                path[i] += 15;
+            }
+            if(i == 1 || i == 3 || i == 9) {
+                path[i] += 5;
+            }
+        }
+
+        Polyline polyline = new Polyline();
+        polyline.getPoints().addAll(path);
+
+        transition = new PathTransition();
+        transition.setNode(this);
+        transition.setDuration(Duration.seconds(3));
+        transition.setPath(polyline);
+        transition.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
+        transition.setCycleCount(PathTransition.INDEFINITE);
     }
     /**
-     * starts following path when told to from RaceTrack startRace()
+     * starts following path when told to from Racepath startRace()
      */
     public void startEngine() {
-
+        transition.play();
     }
 
 
     /**
-     * getter for the race track's track
-     * @return race track coordinates 
+     * getter for the race path's path
+     * @return race path coordinates 
      */
-    public int[] getTrack() {
-        return this.track;
+    public Double[] getpath() {
+        return this.path;
     }
     
     /**
@@ -76,7 +106,7 @@ public class Car extends Rectangle{
      */
     @Override
     public String toString() {
-        return this.color + "car:\nSpeed: " + this.speed + "\nTrack: " + this.track;
+        return this.color + "car:\nSpeed: " + this.speed + "\npath: " + this.path;
     }
 
     /**
@@ -93,7 +123,7 @@ public class Car extends Rectangle{
 
         Car car = (Car) obj;
 
-        return this.color.equals(car.getColor()) && this.speed == car.getSpeed() && this.track == car.getTrack();
+        return this.color.equals(car.getColor()) && this.speed == car.getSpeed() && this.path == car.getpath();
     }
 
     /*
@@ -111,8 +141,8 @@ public class Car extends Rectangle{
     //method used during development to check parameters of the car -JL
     public void carPrinterTester(){
         System.out.print("Car's path is: ");
-        for(int i = 0; i < track.length; i++){
-            System.out.print(track[i] + " ");
+        for(int i = 0; i < path.length; i++){
+            System.out.print(path[i] + " ");
         }
         System.out.println("\n With Speed: " + speed);
 
