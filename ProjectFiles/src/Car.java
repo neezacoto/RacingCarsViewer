@@ -6,10 +6,10 @@ import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 import javafx.scene.shape.Polyline;
 /**
- * This class is responsible for rendering the car and 
+ * This class is responsible for rendering the car and
  * making it race down a path reporting when it finishes
  * -
- * Christian Rudder: Made the skeleton connecting it to demonstrate how 
+ * Christian Rudder: Made the skeleton connecting it to demonstrate how
  * a car object will show on the racetrack and how it will report it's win. Also including
  * an initial override for toString and Equals
  */
@@ -19,6 +19,7 @@ public class Car extends Rectangle{
     private String color;
     private int speed;
     private int[] track; //coordinate path that the car has to follow
+    PathTransition transition;
 
     /**
      * The Car constructor
@@ -32,36 +33,39 @@ public class Car extends Rectangle{
 
         Polyline polyline = new Polyline();
         polyline.getPoints().addAll(new Double[] {
-            0.0, 0.0,
-            100.0, 0.0,
-            100.0, 200.,
-            0.0, 200.0
+            -100.0, -100.0,
+            100.0, -100.0,
+            100.0, 150.0,
+            -100.0,150.0,
+            -100.0,-100.0
+
+ 
         });
 
-        PathTransition transition = new PathTransition();
+        transition = new PathTransition();
         transition.setNode(this);
-        transition.setDuration(Duration.seconds(1));
+        transition.setDuration(Duration.seconds(3));
         transition.setPath(polyline);
         transition.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
         transition.setCycleCount(PathTransition.INDEFINITE);
-        transition.play();
+        
         //finishRaceReport();
     }
     /**
      * starts following path when told to from RaceTrack startRace()
      */
     public void startEngine() {
-
+        transition.play();
     }
 
     /**
      * getter for the race track's track
-     * @return race track coordinates 
+     * @return race track coordinates
      */
     public int[] getTrack() {
         return this.track;
     }
-    
+
     /**
      * getter for the car color
      * @return car color
@@ -106,6 +110,6 @@ public class Car extends Rectangle{
 
 
 
- 
+
 
 }

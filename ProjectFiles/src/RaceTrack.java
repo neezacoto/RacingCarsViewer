@@ -52,8 +52,8 @@ public class RaceTrack extends StackPane {
      */
 
     public RaceTrack(Car car) {
-        // cars = new ArrayList();
-        // this.cars.add(car);
+        cars = new ArrayList();
+        this.cars.add(car);
         this.setStyle("-fx-background-color: black");
         // Button button = new Button();
         
@@ -75,14 +75,16 @@ public class RaceTrack extends StackPane {
     public void startRace() {
         //this is just some test code to check if the start button is being called
         //feel free to comment out or delete once you start writing your logic
-        Alert alert = new Alert(AlertType.CONFIRMATION);
-		alert.setTitle("Yep");
-		alert.setHeaderText("start race works");
-		alert.setContentText("press ok to do nothing");
+        // Alert alert = new Alert(AlertType.CONFIRMATION);
+		// alert.setTitle("Yep");
+		// alert.setHeaderText("start race works");
+		// alert.setContentText("press ok to do nothing");
 
-		alert.showAndWait();
+		// alert.showAndWait();
         //------------------------------------------------------------------------
-        
+        for (Car car : cars) {
+            car.startEngine();
+        }
     }
 
     /**
