@@ -11,6 +11,7 @@ import javafx.scene.Scene;
 
 import java.util.ArrayList;
 
+
 /**
  * Tester class responsible for running the game
  */
@@ -40,5 +41,6 @@ public class Tester extends Application {
 	public static void main(String[] args) {
 		//launch(args);
 		RaceTrack raceTrack = new RaceTrack();
+
 	}
 }
