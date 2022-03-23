@@ -138,6 +138,7 @@ public class RaceTrack extends AnchorPane {
     //method used to shift the checkpoint list of the cars to no two cars have the same path -JL
     //Bug fix by Christian so that all cars still ended up with the same path
 
+
     private ArrayList<Double> shiftCheckpointList(ArrayList<Double> list){
         ArrayList<Double> newCords = new ArrayList<>();
         
