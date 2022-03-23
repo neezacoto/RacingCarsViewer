@@ -1,3 +1,7 @@
+/**
+ * @author David
+ */
+
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import java.util.ArrayList;

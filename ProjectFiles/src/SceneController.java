@@ -1,3 +1,7 @@
+/**
+ * @author Christian
+ */
+
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.animation.KeyFrame;
@@ -36,7 +40,6 @@ public class SceneController implements Initializable{
 	 */
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
-        System.out.println("hello");
 		RaceTrack.newInstance();
         raceTrackContainer.setCenter(RaceTrack.getInstance().getRaceTrack());
 	}

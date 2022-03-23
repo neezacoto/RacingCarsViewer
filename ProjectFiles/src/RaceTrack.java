@@ -1,5 +1,5 @@
 /**
- * @author 
+ * @author Justin L
  */
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -56,11 +56,11 @@ public class RaceTrack extends AnchorPane {
         carColors.add(Color.RED);
         carColors.add(Color.CYAN);
         carColors.add(Color.YELLOW);
-        //loop to ditermine movement of racers
-        ArrayList<Integer> track = new ArrayList<>();
-            for(int j = 1; j < 5; j++){
-             track.add(j);
-        } 
+        // //loop to ditermine movement of racers
+        // ArrayList<Integer> track = new ArrayList<>();
+        //     for(int j = 1; j < 5; j++){
+        //      track.add(j);
+        // } 
          //set random speed for arraylist
         ArrayList<Integer> carSpeeds = generateRandomSpeedList();   
         //movement
