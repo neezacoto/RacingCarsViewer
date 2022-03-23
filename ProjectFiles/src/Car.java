@@ -1,6 +1,9 @@
+import javafx.animation.PathTransition;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Path;
 import javafx.scene.shape.Rectangle;
+import javafx.util.Duration;
 /**
  * This class is responsible for rendering the car and 
  * making it race down a path reporting when it finishes
@@ -17,9 +20,19 @@ public class Car extends Rectangle{
     /**
      * The Car constructor
      */
+
     Car() {
         super(50,30,Color.GREEN);
         this.color = "Green";
+
+        Circle circle = new Circle(100);
+
+        PathTransition transition = new PathTransition();
+        transition.setNode(this);
+        transition.setDuration(Duration.seconds(3));
+        transition.setPath(circle);
+        transition.setCycleCount(PathTransition.INDEFINITE);
+        transition.play();
         //finishRaceReport();
     }
     /**
@@ -51,13 +64,6 @@ public class Car extends Rectangle{
      */
     public int getSpeed() {
         return this.speed;
-    }
-
-    /**
-     * responsible for displaying the win alert once this car has won
-     */
-    private void finishRaceReport() {
-        SceneController.getInstance().winAlert(this);
     }
 
     /**

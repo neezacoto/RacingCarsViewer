@@ -2,11 +2,15 @@
  * @author 
  */
 import java.util.ArrayList;
-
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.StackPane;
+
+/**
+ * to comminicate with scenecrontroller
+ * SceneController.getInstance().methodName()
+ */
 
 /**
  * This class will be responsible for creating the race track that holds all
@@ -16,6 +20,7 @@ import javafx.scene.layout.StackPane;
  * This in the begininng allowed for a car object to move to a position and trigger the win alert upon race start.
  * Also including an initial Override to the toString method
  */
+
 public class RaceTrack extends StackPane { 
     private static RaceTrack instance;//the instance of the RaceTrack
     private int[] track;//the checkpoint path coordinates
@@ -109,6 +114,5 @@ public class RaceTrack extends StackPane {
 
         return "Track Checkpoints: " + this.track + "\n" + carList;
     }
-
 
 }
