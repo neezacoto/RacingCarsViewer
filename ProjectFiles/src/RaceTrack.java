@@ -56,12 +56,8 @@ public class RaceTrack extends AnchorPane {
         carColors.add(Color.RED);
         carColors.add(Color.CYAN);
         carColors.add(Color.YELLOW);
-        // //loop to ditermine movement of racers
-        // ArrayList<Integer> track = new ArrayList<>();
-        //     for(int j = 1; j < 5; j++){
-        //      track.add(j);
-        // } 
-         //set random speed for arraylist
+        
+        //set random speed for arraylist
         ArrayList<Integer> carSpeeds = generateRandomSpeedList();   
         //movement
         carPath = new ArrayList<>(Arrays.asList(
@@ -76,6 +72,7 @@ public class RaceTrack extends AnchorPane {
         colorList.add("Red");
         colorList.add("Cyan");
         colorList.add("Yellow");
+
         for(int i = 0; i < 4; i++){
             Car car = new Car(carSpeeds.get(i), carColors.get(i), shiftCheckpointList(carPath), colorList.get(i));
             cars.add(car);
@@ -165,7 +162,7 @@ public class RaceTrack extends AnchorPane {
                 winner = cars.get(a);
             }
         }
-        winner.carPrinterTester();
+        // winner.carPrinterTester();
         return winner;
     }
 }
