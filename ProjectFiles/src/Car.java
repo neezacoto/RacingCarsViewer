@@ -14,7 +14,7 @@ import java.util.Random;
 public class Car extends Rectangle{
     private String color;
     private int speed;
-    private ArrayList<Integer> track; //coordinate path that the car has to follow
+    private int[] track; //coordinate path that the car has to follow
 
     private Random rand = new Random(); //random is used to randomize the value of the car
 
@@ -27,7 +27,7 @@ public class Car extends Rectangle{
         //finishRaceReport();
     }
 
-    Car(int speed, Color carColor, ArrayList<Integer> track){ //Used to give the cars specific paths according to their numbers
+    Car(int speed, Color carColor, int[] track){ //Used to give the cars specific paths according to their numbers
         super(50,30, carColor);
         this.speed = speed;
         this.track = track;
@@ -44,7 +44,7 @@ public class Car extends Rectangle{
      * getter for the race track's track
      * @return race track coordinates 
      */
-    public ArrayList<Integer> getTrack() {
+    public int[] getTrack() {
         return this.track;
     }
     
@@ -111,8 +111,8 @@ public class Car extends Rectangle{
     //method used during development to check parameters of the car -JL
     public void carPrinterTester(){
         System.out.print("Car's path is: ");
-        for(int i = 0; i < 4; i++){
-            System.out.print(track.get(i) + " ");
+        for(int i = 0; i < track.length; i++){
+            System.out.print(track[i] + " ");
         }
         System.out.println("\n With Speed: " + speed);
 
