@@ -4,6 +4,7 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Path;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
+import javafx.scene.shape.Polyline;
 /**
  * This class is responsible for rendering the car and 
  * making it race down a path reporting when it finishes
@@ -12,6 +13,8 @@ import javafx.util.Duration;
  * a car object will show on the racetrack and how it will report it's win. Also including
  * an initial override for toString and Equals
  */
+
+
 public class Car extends Rectangle{
     private String color;
     private int speed;
@@ -25,12 +28,21 @@ public class Car extends Rectangle{
         super(50,30,Color.GREEN);
         this.color = "Green";
 
-        Circle circle = new Circle(100);
+        // Circle circle = new Circle(100);
+
+        Polyline polyline = new Polyline();
+        polyline.getPoints().addAll(new Double[] {
+            0.0, 0.0,
+            100.0, 0.0,
+            100.0, 200.,
+            0.0, 200.0
+        });
 
         PathTransition transition = new PathTransition();
         transition.setNode(this);
-        transition.setDuration(Duration.seconds(3));
-        transition.setPath(circle);
+        transition.setDuration(Duration.seconds(1));
+        transition.setPath(polyline);
+        transition.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
         transition.setCycleCount(PathTransition.INDEFINITE);
         transition.play();
         //finishRaceReport();

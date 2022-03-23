@@ -52,10 +52,10 @@ public class RaceTrack extends StackPane {
      */
 
     public RaceTrack(Car car) {
-        cars = new ArrayList();
-        this.cars.add(car);
+        // cars = new ArrayList();
+        // this.cars.add(car);
         this.setStyle("-fx-background-color: black");
-        Button button = new Button();
+        // Button button = new Button();
         
         this.getChildren().addAll(car);
     }
