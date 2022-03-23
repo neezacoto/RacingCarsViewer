@@ -9,6 +9,8 @@ import java.util.Collections;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Alert.AlertType;
@@ -190,15 +192,28 @@ public class RaceTrack extends AnchorPane {
         return this;
     }
     
-    public void EndOfRace(){
-    timer.schedule(new TimerTask() {
-        @Override
-        public void run() {
-            SceneController.getInstance().winAlert(highSpeed);
-        }
-    }, lowSpeed*1000);
+    // public void endOfRace(){
+
+    //     Timer timer = new java.util.Timer();
+
+    //     timer.schedule(new TimerTask() {
+    //         public void run() {
+    //             Platform.runLater(new Runnable() {
+    //                 public void run() {
+    //                     SceneController.getInstance().winAlert(highSpeed);
+    //                 }
+    //             });
+    //         }
+    //     }, lowSpeed*1000,0);
+        
+    // // timer.schedule(new TimerTask() {
+    // //     @Override
+    // //     public void run() {
+    // //         SceneController.getInstance().winAlert(highSpeed);
+    // //     }
+    // // }, lowSpeed*1000);
     
-    }
+    // }
 
 
     /**
@@ -219,6 +234,7 @@ public class RaceTrack extends AnchorPane {
             car.startEngine();
             
         }
+        SceneController.getInstance().winAlert(highSpeed, lowSpeed);
     }
 
     /**

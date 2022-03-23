@@ -94,13 +94,6 @@ public class Car extends Rectangle{
     }
 
     /**
-     * responsible for displaying the win alert once this car has won
-     */
-    private void finishRaceReport() {
-        SceneController.getInstance().winAlert(this);
-    }
-
-    /**
      * Overriding the toString method to work with the Car object
      */
     @Override

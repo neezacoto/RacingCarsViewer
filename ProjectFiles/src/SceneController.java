@@ -1,6 +1,8 @@
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -12,6 +14,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 /**
  * Responsible for controlling the main UI elements of the Simulation
@@ -59,24 +62,32 @@ public class SceneController implements Initializable{
 	 */
     public void startRaceButton(ActionEvent event){
         RaceTrack.getInstance().startRace();
-        RaceTrack.getInstance().EndOfRace();
+       
     }
+	
     
 
 	/**
 	 * The win alert once a car has won
 	 * @param winner the Car object that called winAlert
 	 */
-    public void winAlert(Car winner){
-        Alert alert = new Alert(AlertType.CONFIRMATION);
-		alert.setTitle("Winner Winner Chicken Dinner ! ! ! ! ! ! !");
-		alert.setHeaderText(winner.getColor() +" has won the race!");
-		alert.setContentText("the race is finished (clicking 'ok' will reset the track):");
+    public void winAlert(Car winner,int lowSpeed){
 
-		if(alert.showAndWait().get() == ButtonType.OK) {
-				//this will reset track by re-creating a whole new race
-                //RaceTrack.newInstance();
-		}
+		new Timeline(new KeyFrame(
+        Duration.millis(lowSpeed*1000),
+        ae -> {
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Winner Winner Chicken Dinner ! ! ! ! ! ! !");
+			alert.setHeaderText(winner.getColor() +" has won the race!");
+			alert.setContentText("the race is finished (clicking 'ok' will reset the track):");
+	
+			alert.setOnHidden(evt -> RaceTrack.newInstance());
+
+			alert.show();
+		}))
+    	.play();
+		
+       
     }
 
 
