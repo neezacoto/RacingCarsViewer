@@ -28,7 +28,7 @@ public class RaceTrack extends AnchorPane {
     private static RaceTrack instance;//the instance of the RaceTrack
     private int[] track;//the checkpoint path coordinates
     private ArrayList<Car> cars;//all the cars in play
-
+    private int origin;
     /**
 	 *Creating an instance of the RaceTrack to be referenced
 	 * @return an instance of itself
@@ -37,12 +37,13 @@ public class RaceTrack extends AnchorPane {
     public static RaceTrack newInstance() {
         //this is where it's calling the Constructor
 
+        
          Double[] path = new Double[] {
-            10.0, 10.0,
-            100.0, 10.0,
-            100.0, 150.0,
-            10.0,150.0,
-            10.0,10.0
+            20.0, 20.0,
+            300.0, 20.0,
+            300.0, 150.0,
+            20.0,150.0,
+            20.0, 20.0
  
         };
         instance = new RaceTrack(new Car(path));
@@ -70,9 +71,9 @@ public class RaceTrack extends AnchorPane {
         // Button button = new Button();
         
         this.getChildren().addAll(car);
-        AnchorPane.setTopAnchor(car, 10.0);
-        AnchorPane.setLeftAnchor(car, 10.0);
-        AnchorPane.setRightAnchor(car, 65.0);
+        System.out.println(this.getHeight());
+        AnchorPane.setTopAnchor(car, 20.0);
+        AnchorPane.setLeftAnchor(car, 20.0);
     }
 
     /**
