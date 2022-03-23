@@ -19,28 +19,34 @@ public class Car extends Rectangle{
     private String color;
     private int speed;
     private int[] track; //coordinate path that the car has to follow
-    PathTransition transition;
+    private PathTransition transition;
+    private Double[] path;
 
     /**
      * The Car constructor
      */
 
-    Car() {
+    Car(Double[] path) {
+        
         super(50,30,Color.GREEN);
         this.color = "Green";
 
         // Circle circle = new Circle(100);
 
-        Polyline polyline = new Polyline();
-        polyline.getPoints().addAll(new Double[] {
-            -100.0, -100.0,
-            100.0, -100.0,
-            100.0, 150.0,
-            -100.0,150.0,
-            -100.0,-100.0
+        this.path = path;
 
- 
-        });
+        //corrects the height
+        for(int i = 0; i < path.length; i++) {
+            if( i== 0 || i == 6 || i == 8) {
+                path[i] += 15;
+            }
+            if(i == 1 || i == 3 || i == 9) {
+                path[i] += 5;
+            }
+        }
+
+        Polyline polyline = new Polyline();
+        polyline.getPoints().addAll(path);
 
         transition = new PathTransition();
         transition.setNode(this);

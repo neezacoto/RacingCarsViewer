@@ -2,9 +2,12 @@
  * @author 
  */
 import java.util.ArrayList;
+
+import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 
 /**
@@ -21,7 +24,7 @@ import javafx.scene.layout.StackPane;
  * Also including an initial Override to the toString method
  */
 
-public class RaceTrack extends StackPane { 
+public class RaceTrack extends AnchorPane { 
     private static RaceTrack instance;//the instance of the RaceTrack
     private int[] track;//the checkpoint path coordinates
     private ArrayList<Car> cars;//all the cars in play
@@ -33,7 +36,16 @@ public class RaceTrack extends StackPane {
 	 */
     public static RaceTrack newInstance() {
         //this is where it's calling the Constructor
-        instance = new RaceTrack(new Car());
+
+         Double[] path = new Double[] {
+            10.0, 10.0,
+            100.0, 10.0,
+            100.0, 150.0,
+            10.0,150.0,
+            10.0,10.0
+ 
+        };
+        instance = new RaceTrack(new Car(path));
         return instance;
     }
 
@@ -58,6 +70,9 @@ public class RaceTrack extends StackPane {
         // Button button = new Button();
         
         this.getChildren().addAll(car);
+        AnchorPane.setTopAnchor(car, 10.0);
+        AnchorPane.setLeftAnchor(car, 10.0);
+        AnchorPane.setRightAnchor(car, 65.0);
     }
 
     /**
@@ -65,7 +80,7 @@ public class RaceTrack extends StackPane {
      * @return RaceTrack's AnchorPane
      * @author Christian Rudder
      */
-    public StackPane getRaceTrack() {
+    public AnchorPane getRaceTrack() {
         return this;
     }
 
