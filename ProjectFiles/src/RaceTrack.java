@@ -82,11 +82,12 @@ public class RaceTrack extends StackPane {
 
         carPath = new int[]{1, 2, 3, 4};
 
-        //int[][] tempPath = new int[4][4]
+
 
         for(int i = 0; i < 4; i++){
-            cars.add(new Car(carSpeeds.get(i), carColors.get(i), shiftCheckpointList(carPath)));
-            //carPath = shiftCheckpointList(carPath);
+            int[] temp = carPath;
+            cars.add(new Car(carSpeeds.get(i), carColors.get(i), shiftCheckpointList(temp)));
+
         }
 
 
@@ -99,6 +100,10 @@ public class RaceTrack extends StackPane {
         }
 
     }
+
+
+    //method used to shift the checkpoint list of the cars to no two cars have the same path -JL
+    //Bug fix by Christian so that all cars still ended up with the same path
 
     private int[] shiftCheckpointList(int[] list){
         int[] temp = new int[list.length];
