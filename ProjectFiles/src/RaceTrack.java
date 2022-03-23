@@ -60,6 +60,7 @@ public class RaceTrack extends AnchorPane {
      */
 
     public RaceTrack() {
+        System.out.println("hello im new instance");
         //Old code used to start the initialization of the racetrack
         /*cars = new ArrayList();
         this.cars.add(car);

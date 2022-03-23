@@ -81,7 +81,10 @@ public class SceneController implements Initializable{
 			alert.setHeaderText(winner.getColor() +" has won the race!");
 			alert.setContentText("the race is finished (clicking 'ok' will reset the track):");
 	
-			alert.setOnHidden(evt -> RaceTrack.newInstance());
+			alert.setOnHidden(evt -> {
+				RaceTrack.newInstance();
+				raceTrackContainer.setCenter(RaceTrack.getInstance().getRaceTrack());
+			});
 
 			alert.show();
 		}))
