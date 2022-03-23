@@ -1,22 +1,13 @@
 /**
  * @author 
  */
-import java.awt.*;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Random;
 import java.util.Timer;
-import java.util.TimerTask;
-
-import javafx.application.Platform;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
-
 /**
  * This class will be responsible for creating the race track that holds all
  * the cars and start function for the simulation
@@ -29,22 +20,20 @@ public class RaceTrack extends AnchorPane {
     private static RaceTrack instance;//the instance of the RaceTrack
     private ArrayList<Double> carPath;//the checkpoint path coordinates
     private ArrayList<Car> cars;//all the cars in play
-    private Car highSpeed;
-    private int lowSpeed;
+    private Car highSpeed;// holds value of fastes car
+    private int lowSpeed;//holds value of slowest car
     Random rand = new Random(); //used to generate random speeds for the cars
     Timer timer = new Timer();// timer to delay win screan
-    /**
+        /**
 	 *Creating an instance of the RaceTrack to be referenced
 	 * @return an instance of itself
-     * @author Christian Rudder
+         * @author Christian Rudder
 	 */
     public static RaceTrack newInstance() {
         //this is where it's calling the Constructor
         instance = new RaceTrack();
-        
         return instance;
     }
-
     /**
      * The getter for a live instance of RaceTrack
      * @return the current instance of RaceTrack
@@ -53,82 +42,40 @@ public class RaceTrack extends AnchorPane {
     public static RaceTrack getInstance() {
         return instance;
     }
-
     /**
      * This is the constructor where you will set up the AnchorPane
      * @author Christian Rudder
      */
-
     public RaceTrack() {
-        System.out.println("hello im new instance");
-        //Old code used to start the initialization of the racetrack
-        /*cars = new ArrayList();
-        this.cars.add(car);
-        this.setStyle("-fx-background-color: black");
-        Button button = new Button();
-        
-        this.getChildren().addAll(car);*/
-
+        //base for race track
         this.setStyle("-fx-background-color: black");
         cars = new ArrayList<>();
-        lowSpeed=0;
-
+        lowSpeed=0; 
         ArrayList<Color> carColors = new ArrayList<Color>();
         carColors.add(Color.GREEN);
         carColors.add(Color.RED);
         carColors.add(Color.CYAN);
         carColors.add(Color.YELLOW);
-
+        //loop to ditermine movement of racers
         ArrayList<Integer> track = new ArrayList<>();
-        for(int j = 1; j < 5; j++){
-            track.add(j);
-        }
-        
-            
-        ArrayList<Integer> carSpeeds = generateRandomSpeedList();
-        
-        // carPath = new Double[] {
-        //     10.0, 10.0,
-        //     100.0, 10.0,
-        //     100.0, 150.0,
-        //     10.0,150.0,
-        //     
- 
-        // };
-
-        // carPath = new Double[] {
-            
-        //     100.0, 10.0,
-        //     100.0, 150.0,
-        //     10.0,150.0,
-        //     10.0,10.0,
-        //     
- 
-        // };
-
-        // carPath = new Double[] {
-            
-        //     100.0, 150.0,
-        //     10.0,150.0,
-        //     10.0,10.0,
-        //     100.0, 10.0,
- 
-        // };
-
+            for(int j = 1; j < 5; j++){
+             track.add(j);
+        } 
+         //set random speed for arraylist
+        ArrayList<Integer> carSpeeds = generateRandomSpeedList();   
+        //movement
         carPath = new ArrayList<>(Arrays.asList(
             10.0,150.0,
             10.0,10.0,
             100.0, 10.0,
             100.0, 150.0
         ));
-
+        //names of racers
         ArrayList<String> colorList = new ArrayList<String>();
         colorList.add("Green");
         colorList.add("Red");
         colorList.add("Cyan");
         colorList.add("Yellow");
-
-
         for(int i = 0; i < 4; i++){
             Car car = new Car(carSpeeds.get(i), carColors.get(i), shiftCheckpointList(carPath), colorList.get(i));
             cars.add(car);
@@ -143,28 +90,13 @@ public class RaceTrack extends AnchorPane {
                 }
             if(carSpeeds.get(i)>lowSpeed){
                 lowSpeed=carSpeeds.get(i);
-                }
-            
-        }
-
-        // //Loop used to test to see what information the cars have
-        // for(int i = 0; i < cars.size(); i++){
-        //     cars.get(i).carPrinterTester();
-        // }
-
-        
-        
-
+                }         
+        }    
     }
-
-
     //method used to shift the checkpoint list of the cars to no two cars have the same path -JL
     //Bug fix by Christian so that all cars still ended up with the same path
-
-
     private ArrayList<Double> shiftCheckpointList(ArrayList<Double> list){
-        ArrayList<Double> newCords = new ArrayList<>();
-        
+        ArrayList<Double> newCords = new ArrayList<>(); 
         Double temp1 = list.remove(0);
         Double temp2 = list.remove(0);
         list.add(temp1);
@@ -174,22 +106,15 @@ public class RaceTrack extends AnchorPane {
         }
         return newCords;
     }
-
-
     //used to generate speeds from an integer to another then randomizes the order of the speeds -JL
     private ArrayList<Integer> generateRandomSpeedList(){
         ArrayList<Integer> speeds = new ArrayList<Integer>();
-
         for(int i = 5; i < 10; i++){
             speeds.add(i);
         }
-
         Collections.shuffle(speeds);
         return speeds;
     }
-
-
-
     /**
      * getter for the RaceTrack UI
      * @return RaceTrack's AnchorPane
@@ -198,52 +123,15 @@ public class RaceTrack extends AnchorPane {
     public AnchorPane getRaceTrack() {
         return this;
     }
-    
-    // public void endOfRace(){
-
-    //     Timer timer = new java.util.Timer();
-
-    //     timer.schedule(new TimerTask() {
-    //         public void run() {
-    //             Platform.runLater(new Runnable() {
-    //                 public void run() {
-    //                     SceneController.getInstance().winAlert(highSpeed);
-    //                 }
-    //             });
-    //         }
-    //     }, lowSpeed*1000,0);
-        
-    // // timer.schedule(new TimerTask() {
-    // //     @Override
-    // //     public void run() {
-    // //         SceneController.getInstance().winAlert(highSpeed);
-    // //     }
-    // // }, lowSpeed*1000);
-    
-    // }
-
-
     /**
      * starts the race
      */
     public void startRace() {
-        //this is just some test code to check if the start button is being called
-        //feel free to comment out or delete once you start writing your logic
-        // Alert alert = new Alert(AlertType.CONFIRMATION);
-		// alert.setTitle("Yep");
-		// alert.setHeaderText("start race works");
-		// alert.setContentText("press ok to do nothing");
-
-		// alert.showAndWait();
-        //------------------------------------------------------------------------
-        
         for (Car car : cars) {
             car.startEngine();
-            
         }
         SceneController.getInstance().winAlert(highSpeed, lowSpeed);
     }
-
     /**
      * Getter for the track coordinates
      * @return track coordinates
@@ -251,7 +139,6 @@ public class RaceTrack extends AnchorPane {
     public ArrayList<Double> getTrack() {
         return carPath;
     }
-
     /**
      * getter for the cars in the race
      * @return ArrayList of car objects
@@ -259,21 +146,18 @@ public class RaceTrack extends AnchorPane {
     public ArrayList<Car> getCars() {
         return cars;
     } 
-
     /**
      * Overriding toString to present RaceTrack data
      */
     @Override
     public String toString() {
-
         String carList = "";
         for(Car car : cars ) {
             carList += car + "\n-\n";
         }
-
         return "Track Checkpoints: " + this.carPath + "\n" + carList;
     }
-
+    // shows win screen with who won
     public Car getWinner(){
         Car winner = cars.get(0);
         for(int a = 1; a < 4; a++){
@@ -284,7 +168,4 @@ public class RaceTrack extends AnchorPane {
         winner.carPrinterTester();
         return winner;
     }
-
-
-
 }
