@@ -121,9 +121,15 @@ public class RaceTrack extends AnchorPane {
             100.0, 150.0
         ));
 
+        ArrayList<String> colorList = new ArrayList<String>();
+        colorList.add("Green");
+        colorList.add("Red");
+        colorList.add("Cyan");
+        colorList.add("Yellow");
+
 
         for(int i = 0; i < 4; i++){
-            Car car = new Car(carSpeeds.get(i), carColors.get(i), shiftCheckpointList(carPath));
+            Car car = new Car(carSpeeds.get(i), carColors.get(i), shiftCheckpointList(carPath), colorList.get(i));
             cars.add(car);
             this.getChildren().add(car);
             AnchorPane.setTopAnchor(car, 70.0);

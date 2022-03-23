@@ -33,10 +33,11 @@ public class Car extends Rectangle{
         //finishRaceReport();
     }
 
-    Car(int speed, Color carColor, ArrayList<Double> path){ //Used to give the cars specific paths according to their numbers
+    Car(int speed, Color carColor, ArrayList<Double> path, String colorName){
         super(50,30, carColor);
         this.speed = speed;
         this.path = path;
+        this.color = colorName;
 
         // Circle circle = new Circle(100);
 
