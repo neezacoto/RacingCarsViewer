@@ -117,9 +117,18 @@ public class RaceTrack extends StackPane {
         }
         list[list.length - 1] = listPoint;
 
+        for(int i = 0; i < list.length - 1; i++){
+            list[i] = list[i + 1];
+        }
+        list[list.length - 1] = listPoint;
+
         for(int i = 0; i < temp.length; i++) {
             temp[i] = list[i];
         }
+        for(int i = 0; i < list.length; i++) {
+            System.out.print(list[i] + " " );
+        }
+        System.out.println();
         return temp;
     }
 
