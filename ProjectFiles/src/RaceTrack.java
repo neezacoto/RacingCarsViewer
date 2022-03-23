@@ -2,11 +2,14 @@
  * @author 
  */
 import java.util.ArrayList;
+import javafx.animation.PathTransition;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.StackPane;
+import javafx.scene.shape.*;
+import javafx.util.Duration;
 
 /**
  * This class will be responsible for creating the race track that holds all
@@ -20,6 +23,10 @@ public class RaceTrack extends StackPane {
     private static RaceTrack instance;//the instance of the RaceTrack
     private int[] track;//the checkpoint path coordinates
     private ArrayList<Car> cars;//all the cars in play
+    private Car carz = new Car();
+    private ArrayList<Integer> checkPoints;
+    private int laps;
+    private ArrayList<Car> car;
 
     /**
 	 *Creating an instance of the RaceTrack to be referenced
@@ -46,10 +53,13 @@ public class RaceTrack extends StackPane {
      * @author Christian Rudder
      */
 
-    public RaceTrack(Car car) {
+    public RaceTrack(Car car) {        
         cars = new ArrayList();
         this.cars.add(car);
         this.setStyle("-fx-background-color: black");
+        
+        
+        
         Button button = new Button();
         
         this.getChildren().addAll(car);
@@ -79,6 +89,14 @@ public class RaceTrack extends StackPane {
         //------------------------------------------------------------------------
         
     }
+    
+    public ArrayList getCheckPoint(){
+        return checkPoints;
+    }
+    
+    
+    
+    
 
     /**
      * Getter for the track coordinates
