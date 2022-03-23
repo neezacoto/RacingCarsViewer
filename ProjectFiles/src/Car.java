@@ -1,6 +1,6 @@
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Path;
 import javafx.scene.shape.Rectangle;
+import java.util.Random;
 /**
  * This class is responsible for rendering the car and 
  * making it race down a path reporting when it finishes
@@ -14,6 +14,8 @@ public class Car extends Rectangle{
     private int speed;
     private int[] track; //coordinate path that the car has to follow
 
+    private Random rand = new Random(); //random is used to randomize the value of the car
+
     /**
      * The Car constructor
      */
@@ -22,12 +24,34 @@ public class Car extends Rectangle{
         this.color = "Green";
         //finishRaceReport();
     }
+
+    Car(int carNumber){ //Used to give the cars specific paths according to their numbers
+        super(50,30,Color.GREEN);
+        this.color = "Green";
+        speed = 0;
+        randomizeSpeed();
+
+        if(carNumber == 1){
+            track = new int[]{1, 2, 3, 4};
+        } else if (carNumber == 2){
+            track = new int[]{2, 3, 4, 1};
+        } else if (carNumber == 3){
+            track = new int[]{3, 4, 1, 2};
+        } else if (carNumber == 4){
+            track = new int[]{4, 1, 2, 3};
+        } else {
+            track = new int[]{0, 0, 0, 0};
+        }
+
+
+    }
     /**
      * starts following path when told to from RaceTrack startRace()
      */
     public void startEngine() {
 
     }
+
 
     /**
      * getter for the race track's track
@@ -83,6 +107,23 @@ public class Car extends Rectangle{
         Car car = (Car) obj;
 
         return this.color.equals(car.getColor()) && this.speed == car.getSpeed() && this.track == car.getTrack();
+    }
+
+    /*
+    Method to randomize the speed of the car again if any cars have the matching speed -JL
+    */
+
+    public void randomizeSpeed(){
+        while(speed == 0) {
+            speed = rand.nextInt(5);
+        }
+    }
+
+
+    //method used during development to check parameters of the car -JL
+    public void carPrinterTester(){
+        System.out.println("Car's path is " + track[0] + " " + track[1] + " " +track[2] + " " + track[3] + " \n with speed: " + speed);
+
     }
 
 

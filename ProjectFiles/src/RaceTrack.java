@@ -28,7 +28,7 @@ public class RaceTrack extends StackPane {
 	 */
     public static RaceTrack newInstance() {
         //this is where it's calling the Constructor
-        instance = new RaceTrack(new Car());
+        instance = new RaceTrack();
         return instance;
     }
 
@@ -46,13 +46,34 @@ public class RaceTrack extends StackPane {
      * @author Christian Rudder
      */
 
-    public RaceTrack(Car car) {
-        cars = new ArrayList();
+    public RaceTrack() {
+        /*cars = new ArrayList();
         this.cars.add(car);
         this.setStyle("-fx-background-color: black");
         Button button = new Button();
         
-        this.getChildren().addAll(car);
+        this.getChildren().addAll(car);*/
+        cars = new ArrayList<>();
+        for(int i = 1; i < 5; i++){
+            cars.add(new Car(i));
+        }
+
+        while(cars.get(0).getSpeed() == cars.get(1).getSpeed() || cars.get(0).getSpeed() == cars.get(2).getSpeed() || cars.get(0).getSpeed() == cars.get(3).getSpeed()){
+            cars.get(0).randomizeSpeed();
+        }
+
+        /*while(cars.get(1).getSpeed() == cars.get(0).getSpeed() || cars.get(1).getSpeed() == cars.get(2).getSpeed() || cars.get(1).getSpeed() == cars.get(3).getSpeed()){
+            cars.get(1).randomizeSpeed();
+        }
+
+        while(cars.get(3).getSpeed() == cars.get(0).getSpeed() || cars.get(3).getSpeed() == cars.get(1).getSpeed() || cars.get(3).getSpeed() == cars.get(2).getSpeed()){
+            cars.get(3).randomizeSpeed();
+        }*/
+
+        for(int i = 0; i < 4; i++){
+            cars.get(i).carPrinterTester();
+        }
+
     }
 
     /**
