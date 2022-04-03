@@ -103,11 +103,11 @@ public class Car extends Rectangle{
         }
     }
     //method used during development to check parameters of the car -JL
-    public void carPrinterTester(){
-        System.out.print("Car's path is: ");
-        for(int i = 0; i < path.size(); i++){
-            System.out.print(path.get(i) + " ");
-        }
-        System.out.println("\n With Speed: " + speed);
-    }
+    // public void carPrinterTester(){
+    //     System.out.print("Car's path is: ");
+    //     for(int i = 0; i < path.size(); i++){
+    //         System.out.print(path.get(i) + " ");
+    //     }
+    //     System.out.println("\n With Speed: " + speed);
+    // }
 }

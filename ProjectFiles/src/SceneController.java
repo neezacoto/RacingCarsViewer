@@ -49,6 +49,7 @@ public class SceneController implements Initializable{
 	 */
     public void startRaceButton(ActionEvent event){
         RaceTrack.getInstance().startRace();
+		startButton.setDisable(true);
         }
 	/**
 	 * The win alert once a car has won
@@ -66,6 +67,7 @@ public class SceneController implements Initializable{
 			alert.setOnHidden(evt -> {
 				RaceTrack.newInstance();
 				raceTrackContainer.setCenter(RaceTrack.getInstance().getRaceTrack());
+				startButton.setDisable(false);
 			});
 
 			alert.show();
